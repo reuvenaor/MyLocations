@@ -74,7 +74,7 @@ const ToolsBarComp = (props) => {
           <CustomTextButton key={i[0]} name={i[0]} active={i[1]} action={() => onAction(i[0])} />
         ))}
       </View>
-      <UiText style={{fontSize: 20}}>{props.title}</UiText>
+      <UiText style={{fontSize: 20, minHeight: 40}}>{props.title}</UiText>
     </View>
   );
 }

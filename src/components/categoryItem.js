@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   StyleSheet,
   TouchableOpacity,
@@ -9,6 +9,13 @@ import { Styles, Sizes } from '../utils/styles';
 const categoryItem = (props) => {
 
   const [value, setValue] = useState(props.item[1]._name)
+  const textInput = useRef();
+
+  useEffect(() => {
+    if (props.item[1]?._name === '' && textInput?.current) {
+      textInput.current.focus();
+    }
+  }, [props.item])
 
   return (
     <TouchableOpacity
@@ -19,6 +26,7 @@ const categoryItem = (props) => {
         allowFontScaling={false}
         editable={props.item[1]?._name === ''}
         numberOfLines={1}
+        ref={textInput}
         underlineColorAndroid={'transparent'}
         onChangeText={txt => setValue(txt)}
         onEndEditing={() => props.updateCategory(value)}

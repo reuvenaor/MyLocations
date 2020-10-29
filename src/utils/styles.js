@@ -61,14 +61,15 @@ export const Styles = StyleSheet.create({
     shadowRadius: 3.84,
   },
   elevateFifteen: {
-    elevation: 15,
+    elevation: 5,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 7,
+      height: 2,
     },
-    shadowOpacity: 0.43,
-    shadowRadius: 9.51,
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    borderWidth: 2
   },
   box: {
     height: Sizes.FAV_BOX,
