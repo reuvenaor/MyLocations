@@ -6,7 +6,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
-import { onSetCurrentCat } from '../store/actions/locationAction';
+import { setCurrentCat } from '../store/actions/locationAction';
 import { Styles, Sizes, Colors } from '../utils/styles';
 import ToolsBar from '../components/toolsBar';
 import UiText from '../components/uText';
@@ -16,7 +16,7 @@ const CreateScreen = (props) => {
 
   return (
     <View style={[Styles.container]}>
-      <ToolsBar vader={'New Category'}/>
+      <ToolsBar title={'New Category'}/>
       <View style={{ flex: 0.9, width: '100%' }}>
     
       </View>
@@ -31,7 +31,7 @@ const stl = StyleSheet.create({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSetCurrentCat: (item) => dispatch(onSetCurrentCat(item))
+    setCurrentCat: (item) => dispatch(setCurrentCat(item))
   };
 };
 

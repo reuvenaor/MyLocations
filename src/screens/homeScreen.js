@@ -3,42 +3,70 @@ import {
   View,
   StyleSheet,
   FlatList,
-  TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
-import { onSetCurrentCat } from '../store/actions/locationAction';
+import { setCurrentCat, updateCategory } from '../store/actions/locationAction';
+import { setTools } from '../store/actions/globalAction';
 import { Styles, Sizes, Colors } from '../utils/styles';
 import ToolsBar from '../components/toolsBar';
-import UiText from '../components/uText';
+import CatItem from '../components/categoryItem';
 
 const HomeScreen = (props) => {
 
+  const [title, setTitle] = useState('Categories');
+
+
+  useEffect(() => {
+    if (props.currentCategory[0] === '') {
+      props.setTools({
+        create: true,
+        delete: false,
+        read: false,
+        update: false,
+      });
+    } else {
+      props.setTools({
+        create: true,
+        delete: true,
+        read: true,
+        update: true,
+      });
+    }
+  }, [props.currentCategory])
+
   const onClear = () => {
+    setTitle('Categories')
     if (props.currentCategory[0] !== '') {
-      props.onSetCurrentCat({ ['0']: '', ['1']: { _name: '' } })
+      props.setCurrentCat({ ['0']: '', ['1']: { _name: '' } })
+    }
+  }
+
+  function onRead() {
+    if (props.currentCategory[1]._name) {
+      setTitle(props.currentCategory[1]._name)
     }
   }
 
   return (
     <View style={[Styles.container]}>
-      <ToolsBar vader={'Categories'}/>
+      <ToolsBar title={title} onRead={onRead} />
       <View style={{ flex: 0.9, width: '100%' }}>
         <FlatList
           onScroll={onClear}
           style={stl.scroll}
           numColumns={3}
           columnWrapperStyle={{ alignItems: 'center', justifyContent: 'center' }}
-          renderItem={({ item }) => {
-            return <TouchableOpacity
-              style={[stl.catItem, props.currentCategory[0] === item[0] && { ...Styles.elevateFifteen }]}
-              key={item[0]}
-              onPress={() => props.onSetCurrentCat(item)}
-            >
-              <UiText>{item[1]?._name || ''}</UiText>
-            </TouchableOpacity>
-          }}
           data={Object.entries(props.categories)}
           keyExtractor={(item, idx) => item + idx}
+          renderItem={({ item }) => {
+            return <CatItem 
+            key={item[0]} 
+            item={item} 
+            hightlighted={props.currentCategory[0] === item[0]}  
+            setCurrentCat={props.setCurrentCat}
+            updateCategory={props.updateCategory}
+            />
+          }}
         />
       </View>
     </View>
@@ -60,7 +88,9 @@ const stl = StyleSheet.create({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSetCurrentCat: (item) => dispatch(onSetCurrentCat(item))
+    setCurrentCat: (item) => dispatch(setCurrentCat(item)),
+    setTools: (obj) => dispatch(setTools(obj)),
+    updateCategory: (str) => dispatch(updateCategory(str))
   };
 };
 

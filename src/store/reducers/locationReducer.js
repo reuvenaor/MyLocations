@@ -1,4 +1,4 @@
-import { UPDATE_CATEGORY, SET_CURRENT_CAT, DELETE } from '../actionType';
+import { UPDATE_CATEGORY, SET_CURRENT_CAT, DELETE, UPDATE } from '../actionType';
 
 const categoriesState = {
   categories: {
@@ -74,22 +74,27 @@ const reducer = (state = { ...categoriesState, ...locationsState }, action) => {
         ...state,
         categories: {
           ...state.categories,
-          ['c1']: {
-            _name: action.res
+          [state.currentCategory[0]]: {
+            _name: action.str
           }
         },
       }
     case DELETE:
-      const newCat = {...state.categories};
-      delete newCat[action.id]
+      const { [state.currentCategory[0]]: value, ...newCat } = state.categories;
       return {
         ...state,
         currentCategory: categoriesState.currentCategory,
         categories: newCat
-        // categories: {
-        //   ...state.categories,
-        //   [action.id]: null
-        // }
+      }
+    case UPDATE:
+      return {
+        ...state,
+        categories: {
+          ...state.categories,
+          [state.currentCategory[0]]: {
+            _name: ''
+          }
+        },
       }
     case SET_CURRENT_CAT:
       return {

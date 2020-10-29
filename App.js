@@ -11,7 +11,6 @@ import configureStore from './src/store/configureStore';
 const store = configureStore();
 import HomeScreen from './src/screens/homeScreen';
 import CreateScreen from './src/screens/createScreen';
-import CategoryScreen from './src/screens/categoryScreen';
 import {Screens} from './src/utils/enums';
 
 
@@ -25,7 +24,6 @@ function App() {
         <Stack.Navigator headerMode="none">
           <Stack.Screen name={Screens.HOME} component={HomeScreen} />
           <Stack.Screen name={Screens.CREATE} component={CreateScreen} />
-          <Stack.Screen name={Screens.CATEGORY} component={CategoryScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

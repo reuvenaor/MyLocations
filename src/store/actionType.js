@@ -11,3 +11,5 @@ export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
 export const SET_TOOLS = 'SET_TOOLS';
 
 export const DELETE = 'DELETE';
+
+export const UPDATE = 'UPDATE';

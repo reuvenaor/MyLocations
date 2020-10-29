@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
 } from 'react-native';
 import { Colors, Styles } from '../utils/styles';
 import { Screens } from '../utils/enums';
-import { updateCategory, toolsbarAction, onSetCurrentCat } from '../store/actions/locationAction';
-import { DELETE } from '../store/actionType';
+import { toolsbarAction, setCurrentCat } from '../store/actions/locationAction';
+import { DELETE, UPDATE } from '../store/actionType';
 import { setTools } from '../store/actions/globalAction';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -41,33 +41,26 @@ const CustomTextButton = ({ name, active, action }) => (
 
 const ToolsBarComp = (props) => {
 
-  console.log('Object.entries(props.toolsbar)', Object.entries(props.toolsbar))
   const navigation = useNavigation();
-  const title = props.currentCategory[1]._name ? props.currentCategory[1]._name : props.vader
-
 
   function onCreate() {
-    props.setTools({
-      create: true,
-      delete: false,
-      read: false,
-      update: false,
-    });
-    props.onSetCurrentCat({ ['0']: '', ['1']: { _name: '' } });
-    navigation.navigate(Screens.CREATE);
+    props.setCurrentCat({ ['0']: '', ['1']: { _name: '' } });
+    navigation.navigate(Screens.CREATE)
   }
 
   function onDelete(id) {
-    props.toolsbarAction({id, type: DELETE, data: null})
+    props.toolsbarAction({id, type: DELETE, data: null});
+    props.setCurrentCat({ ['0']: '', ['1']: { _name: '' } });
   }
+
 
   const onAction = (id) => {
     switch (id) {
       case 'delete': return onDelete(id)
 
-      case 'read': return navigation.navigate(Screens.CATEGORY)
+      case 'read': return props.onRead()
 
-      case 'update': return navigation.navigate(Screens.CREATE)
+      case 'update': return props.toolsbarAction({type: UPDATE})
 
       case 'create': return onCreate()
 
@@ -77,12 +70,12 @@ const ToolsBarComp = (props) => {
 
   return (
     <View style={stl.con}>
-      <UiText>{title}</UiText>
       <View style={stl.tools}>
         {Object.entries(props.toolsbar).map((i) => (
           <CustomTextButton key={i[0]} name={i[0]} active={i[1]} action={() => onAction(i[0])} />
         ))}
       </View>
+      <UiText style={{fontSize: 20}}>{props.title}</UiText>
     </View>
   );
 }
@@ -106,12 +99,9 @@ const stl = StyleSheet.create({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSetCurrentCat: (item) => dispatch(onSetCurrentCat(item)),
+    setCurrentCat: (item) => dispatch(setCurrentCat(item)),
     setTools: (obj) => dispatch(setTools(obj)),
-
     toolsbarAction: (obj) => dispatch(toolsbarAction(obj)),
-    // updateCategory: (name) => dispatch(updateCategory(name)),
-
   };
 };
 
