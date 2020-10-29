@@ -11,12 +11,12 @@ import { Styles, Sizes, Colors } from '../utils/styles';
 import ToolsBar from '../components/toolsBar';
 import UiText from '../components/uText';
 
-const CreateScreen = (props) => {
+const CategoryScreen = (props) => {
 
 
   return (
     <View style={[Styles.container]}>
-      <ToolsBar vader={'New Category'}/>
+      <ToolsBar vader={''}/>
       <View style={{ flex: 0.9, width: '100%' }}>
     
       </View>
@@ -42,4 +42,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryScreen);

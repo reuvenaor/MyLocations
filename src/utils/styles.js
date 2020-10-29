@@ -11,7 +11,6 @@ const scale = width / 320;
 const scaleR = width / height;
 
 export function normalize(size) {
-  console.log('normalize')
   let newSize = null;
   if (scale > 1) {
     newSize = size * scale;
@@ -19,15 +18,10 @@ export function normalize(size) {
     newSize = size * scale * 0.9;
   }
   return Math.round(PixelRatio.roundToNearestPixel(newSize)) - FONT_RESIZE;
-  // if (Platform.OS === 'ios') {
-  //     return Math.round(PixelRatio.roundToNearestPixel(newSize)) - FONT_RESIZE;
-  // } else {
-  //     return Math.round(PixelRatio.roundToNearestPixel(newSize)) - FONT_RESIZE;
-  // }
 }
 
 export const Sizes = {
-  HEADER_H: height * 0.1,
+  HEADER_H: height * 0.11,
   TEXT_IN_H: height * 0.08,
   FAV_BOX: height * 0.15,
   PREC_2: height * 0.02,
@@ -36,13 +30,8 @@ export const Sizes = {
   FONT: normalize(15)
 }
 
-
-export const Strings = {
-  HOME: 'Home',
-  CREATE: 'Create'
-}
-
 export const Colors = {
+  BLACK: '#000',
   LIGHT: '#eee',
   AMB: '#ddd',
   DARK: '#ccc',
@@ -53,10 +42,43 @@ export const Styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     alignItems: 'center',
     zIndex: 1,
-    backgroundColor: '#333',
+    flex: 1,
+    backgroundColor: Colors.AMB,
+    width: '100%',
+    height: '100%'
   },
   center: {
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  elevateFive: {
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  elevateFifteen: {
+    elevation: 15,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 7,
+    },
+    shadowOpacity: 0.43,
+    shadowRadius: 9.51,
+  },
+  box: {
+    height: Sizes.FAV_BOX,
+    marginTop: Sizes.PREC_3,
+    borderRadius: Sizes.PREC_2,
+    margin: '2%',
+    backgroundColor: Colors.LIGHT,
+    elevation: 2,
+    alignItems: 'center',
+    justifyContent: 'space-evenly'
   }
 });
