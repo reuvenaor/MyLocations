@@ -22,6 +22,8 @@ const categoryItem = (props) => {
         underlineColorAndroid={'transparent'}
         onChangeText={txt => setValue(txt)}
         onEndEditing={() => props.updateCategory(value)}
+        multiline={true}
+        maxLength={20}
         value={value}
         blurOnSubmit={true}
         placeholder={props.item[1]?._name || ''}

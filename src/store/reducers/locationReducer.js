@@ -1,4 +1,18 @@
-import { UPDATE_CATEGORY, SET_CURRENT_CAT, DELETE, UPDATE } from '../actionType';
+import { UPDATE_CATEGORY, SET_CURRENT_CAT, DELETE, UPDATE, CREATE_CATEGORY } from '../actionType';
+import { v4 as uuidv4 } from 'uuid';
+
+// const MAX_CAT_INIT = 30;
+// let categoriesInit = {};
+
+// for (let i = 0; i < MAX_CAT_INIT; i++) {
+//   Object.assign(categoriesInit, {
+//     [uuidv4()]: {
+//       _name: uuidv4()
+//     }
+//   })
+// }
+
+// console.log('categoriesInit',categoriesInit)
 
 const categoriesState = {
   categories: {
@@ -93,6 +107,16 @@ const reducer = (state = { ...categoriesState, ...locationsState }, action) => {
           ...state.categories,
           [state.currentCategory[0]]: {
             _name: ''
+          }
+        },
+      }
+    case CREATE_CATEGORY:
+      return {
+        ...state,
+        categories: {
+          ...state.categories,
+          [uuidv4()]: {
+            _name: action.str
           }
         },
       }

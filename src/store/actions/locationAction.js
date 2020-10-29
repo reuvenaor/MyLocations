@@ -1,12 +1,18 @@
-import { UPDATE_CATEGORY, SET_CURRENT_CAT } from '../actionType';
+import { UPDATE_CATEGORY, SET_CURRENT_CAT, CREATE_CATEGORY } from '../actionType';
 import { setTools } from './globalAction';
-import { batch } from 'react-redux';
 
 export function toolsbarAction(tool) {
   return {
     type: tool.type,
     data: tool.data,
     id: tool.id
+  }
+}
+
+export function createCat(str) {
+  return {
+    type: CREATE_CATEGORY,
+    str
   }
 }
 

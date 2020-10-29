@@ -50,7 +50,7 @@ const HomeScreen = (props) => {
   return (
     <View style={[Styles.container]}>
       <ToolsBar title={title} onRead={onRead} />
-      <View style={{ flex: 0.9, width: '100%' }}>
+      <View style={{ flex: 0.9, width: '100%', alignItems: 'center'  }}>
         <FlatList
           onScroll={onClear}
           style={stl.scroll}
