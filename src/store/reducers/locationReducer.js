@@ -1,5 +1,4 @@
 import { UPDATE_CATEGORY, SET_CURRENT_CAT, DELETE, UPDATE, CREATE_CATEGORY } from '../actionType';
-import { v4 as uuidv4 } from 'uuid';
 import {categoriesInit} from '../../utils/api';
 
 const categoriesState = {
@@ -53,11 +52,13 @@ const reducer = (state = { ...categoriesState, ...locationsState }, action) => {
         },
       }
     case CREATE_CATEGORY:
+      const keys = Object.keys(state.categories);
+      const num = parseInt(keys[keys.length - 1].slice(1)) + 1;
       return {
         ...state,
         categories: {
           ...state.categories,
-          [uuidv4()]: {
+          ['c' + num]: {
             _name: action.str
           }
         },

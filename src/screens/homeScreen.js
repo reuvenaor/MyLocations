@@ -11,6 +11,7 @@ import { Styles, Sizes, Colors } from '../utils/styles';
 import ToolsBar from '../components/toolsBar';
 import CatItem from '../components/categoryItem';
 
+
 const HomeScreen = (props) => {
 
   const [title, setTitle] = useState('Categories');
