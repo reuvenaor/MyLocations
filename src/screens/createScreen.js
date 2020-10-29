@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -26,7 +26,7 @@ const CreateScreen = (props) => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={[Styles.container]}>
         <ToolsBar title={'New Category'} />
-        <View style={{ flex: 0.9, width: '100%', alignItems: 'center' }}>
+        <View style={Styles.body}>
           <TextInput
             allowFontScaling={false}
             style={stl.textInput}

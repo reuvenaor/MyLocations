@@ -1,4 +1,4 @@
-import { Dimensions, PixelRatio, Platform, StyleSheet } from 'react-native';
+import { Dimensions, PixelRatio, StyleSheet } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 const widthPx = PixelRatio.getPixelSizeForLayoutSize(width);
@@ -25,8 +25,6 @@ export const Sizes = {
   TEXT_IN_H: height * 0.08,
   FAV_BOX: height * 0.15,
   PREC_2: height * 0.02,
-  PREC_3: height * 0.03,
-  HALF: height * 0.5,
   FONT: normalize(15)
 }
 
@@ -47,6 +45,7 @@ export const Styles = StyleSheet.create({
     width: '100%',
     height: '100%'
   },
+  body: { flex: 0.9, width: '100%', alignItems: 'center'  },
   center: {
     alignItems: 'center',
     justifyContent: 'center'

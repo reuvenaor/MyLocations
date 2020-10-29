@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   View,
   StyleSheet,
@@ -12,7 +12,6 @@ import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import UiText from './uText';
 import { useNavigation } from '@react-navigation/native';
-
 
 const getIconName = (key) => {
   switch (key) {

@@ -1,5 +1,4 @@
 import { UPDATE_CATEGORY, SET_CURRENT_CAT, CREATE_CATEGORY } from '../actionType';
-import { setTools } from './globalAction';
 
 export function toolsbarAction(tool) {
   return {
