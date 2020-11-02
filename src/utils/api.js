@@ -18,11 +18,11 @@ const categories =  categoriesInit();
 export function locationsInit() {
   return [...new Array(MAX_CAT_INIT)].map((i, idx) => {
     return {
-      name: idx,
-      address: idx,
+      name: 'name' + idx,
+      address: 'add' + idx,
       coordinates: {
-        lat: '',
-        lng: ''
+        lat: '101.' + idx,
+        lng: '27.' + idx
       },
       category: [categories['c1'], categories['c2'], categories['c3']]
     }

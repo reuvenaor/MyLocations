@@ -48,7 +48,7 @@ const ToolsBarComp = (props) => {
   }
 
   function onDelete(id) {
-    props.toolsbarAction({id, type: DELETE, data: null});
+    props.toolsbarAction({ id, type: DELETE, data: null });
     props.setCurrentCat({ ['0']: '', ['1']: { _name: '' } });
   }
 
@@ -59,7 +59,7 @@ const ToolsBarComp = (props) => {
 
       case 'read': return props.onRead()
 
-      case 'update': return props.toolsbarAction({type: UPDATE})
+      case 'update': return props.toolsbarAction({ type: UPDATE })
 
       case 'create': return onCreate()
 
@@ -74,7 +74,7 @@ const ToolsBarComp = (props) => {
           <CustomTextButton key={i[0]} name={i[0]} active={i[1]} action={() => onAction(i[0])} />
         ))}
       </View>
-      <UiText style={{fontSize: 20, minHeight: 40}}>{props.title}</UiText>
+      <UiText style={{ fontSize: 20, minHeight: 40 }}>{props.title}</UiText>
     </View>
   );
 }

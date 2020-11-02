@@ -35,11 +35,11 @@ const categoryItem = (props) => {
 const stl = StyleSheet.create({
   locItem: {
     width: Sizes.FAV_BOX,
-    width: '46%',
+    width: '96%',
     ...Styles.box,
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    padding: '1%'
+    padding: '2%'
   },
   blackWrap: {
     flexDirection: 'row',

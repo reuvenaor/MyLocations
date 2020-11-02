@@ -12,7 +12,7 @@ const store = configureStore();
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Screens } from './src/utils/enums';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {Colors} from './src/utils/styles'
+import { Colors } from './src/utils/styles'
 import CategoriesScreen from './src/screens/CategoriesScreen';
 import CreateCatScreen from './src/screens/createCatScreen';
 import LocationsScreen from './src/screens/LocationsScreen';
@@ -69,8 +69,8 @@ function App() {
             inactiveTintColor: Colors.DARK,
           }}
         >
-          <Tab.Screen name={Screens.CATEGORIES} component={CategoriesScreens} />
           <Tab.Screen name={Screens.LOCATIONS} component={LocationsScreens} />
+          <Tab.Screen name={Screens.CATEGORIES} component={CategoriesScreens} />
         </Tab.Navigator>
       </NavigationContainer>
     </Provider>
