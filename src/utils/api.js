@@ -13,5 +13,21 @@ export function categoriesInit() {
   return categoriesInit;
 }
 
+const categories =  categoriesInit();
+
+export function locationsInit() {
+  return [...new Array(MAX_CAT_INIT)].map((i, idx) => {
+    return {
+      name: idx,
+      address: idx,
+      coordinates: {
+        lat: '',
+        lng: ''
+      },
+      category: [categories['c1'], categories['c2'], categories['c3']]
+    }
+  });
+}
+
 
 

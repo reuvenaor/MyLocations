@@ -1,5 +1,5 @@
 import { UPDATE_CATEGORY, SET_CURRENT_CAT, DELETE, UPDATE, CREATE_CATEGORY } from '../actionType';
-import {categoriesInit} from '../../utils/api';
+import { categoriesInit, locationsInit } from '../../utils/api';
 
 const categoriesState = {
   categories: categoriesInit(),
@@ -12,14 +12,16 @@ const categoriesState = {
 }
 
 const locationsState = {
-  locations: [
-    {
-      name: '',
-      address: '',
-      coordinates: '',
-      category: categoriesState.categories['c1']._name
-    }
-  ],
+  locations: locationsInit(),
+  currentLocation: {
+    name: '',
+    address: '',
+    coordinates: {
+      lat: '',
+      lng: ''
+    },
+    category: [categoriesState.categories['c1']]
+  }
 };
 
 const reducer = (state = { ...categoriesState, ...locationsState }, action) => {

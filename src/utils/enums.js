@@ -1,6 +1,8 @@
 export const Screens = {
-  HOME: 'Home',
+  CAT_HOME: 'CategoriesScreen',
   CREATE: 'Create',
+  CATEGORIES: 'Categories',
+  LOCATIONS: 'Locations'
 }
 
 export const ToolsBar = {

@@ -13,7 +13,7 @@ const Utext = (props) => {
       onPress={props.onPress}
       adjustsFontSizeToFit={props.adjustsFontSizeToFit}
       numberOfLines={props.numberOfLines}
-      ellipsizeMode={props.ellipsizeMode}
+      ellipsizeMode={props.ellipsizeMode || 'tail'}
     >
       {props.children}
     </Text>

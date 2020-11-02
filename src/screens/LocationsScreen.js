@@ -7,17 +7,17 @@ import {
 import { connect } from 'react-redux';
 import { setCurrentCat, updateCategory } from '../store/actions/locationAction';
 import { setTools } from '../store/actions/globalAction';
-import { Styles, Sizes, Colors } from '../utils/styles';
+import { Styles, Sizes } from '../utils/styles';
 import ToolsBar from '../components/toolsBar';
-import CatItem from '../components/categoryItem';
+import LoccationItem from '../components/locationItem';
 
 
-const HomeScreen = (props) => {
+const CategoriesScreen = (props) => {
 
-  const [title, setTitle] = useState('Categories');
+  const [title, setTitle] = useState('Locations');
 
   useEffect(() => {
-    if (props.currentCategory[0] === '') {
+    if (props.currentLocation.name === '') {
       props.setTools({
         create: true,
         delete: false,
@@ -32,18 +32,18 @@ const HomeScreen = (props) => {
         update: true,
       });
     }
-  }, [props.currentCategory])
+  }, [props.currentLocation])
 
   const onClear = () => {
-    setTitle('Categories')
-    if (props.currentCategory[0] !== '') {
+    setTitle('Locations')
+    if (props.currentLocation.name !== '') {
       props.setCurrentCat({ ['0']: '', ['1']: { _name: '' } })
     }
   }
 
   function onRead() {
-    if (props.currentCategory[1]._name) {
-      setTitle(props.currentCategory[1]._name)
+    if (props.currentLocation.name) {
+      setTitle(props.currentLocation.name)
     }
   }
 
@@ -54,15 +54,15 @@ const HomeScreen = (props) => {
         <FlatList
           onScroll={onClear}
           style={stl.scroll}
-          numColumns={3}
+          numColumns={2}
           columnWrapperStyle={{ alignItems: 'center', justifyContent: 'center' }}
-          data={Object.entries(props.categories)}
+          data={props.locations}
           keyExtractor={(item, idx) => item + idx}
           renderItem={({ item }) => {
-            return <CatItem 
-            key={item[0]} 
+            return <LoccationItem 
+            key={item} 
             item={item} 
-            hightlighted={props.currentCategory[0] === item[0]}  
+            hightlighted={props.currentLocation.name === item.name}  
             setCurrentCat={props.setCurrentCat}
             updateCategory={props.updateCategory}
             />
@@ -96,9 +96,9 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    categories: state.locationReducer.categories,
-    currentCategory: state.locationReducer.currentCategory,
+    locations: state.locationReducer.locations,
+    currentLocation: state.locationReducer.currentLocation,
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriesScreen);

@@ -13,7 +13,7 @@ import { Styles, Sizes, Colors } from '../utils/styles';
 import ToolsBar from '../components/toolsBar';
 import UiText from '../components/uText';
 
-const CreateScreen = (props) => {
+const CreateCatScreen = (props) => {
 
   const [value, setValue] = useState('');
 
@@ -39,7 +39,6 @@ const CreateScreen = (props) => {
             blurOnSubmit={true}
             disableFullscreenUI={true}
           />
-
           <TouchableOpacity onPress={onPress} style={[stl.btn]}>
             <UiText>{'SAVE'}</UiText>
           </TouchableOpacity>
@@ -78,4 +77,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-export default connect(null, mapDispatchToProps)(CreateScreen);
+export default connect(null, mapDispatchToProps)(CreateCatScreen);
