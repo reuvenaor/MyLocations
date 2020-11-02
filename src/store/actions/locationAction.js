@@ -1,4 +1,4 @@
-import { UPDATE_CATEGORY, SET_CURRENT_CAT, CREATE_CATEGORY } from '../actionType';
+import { UPDATE_CATEGORY, SET_CURRENT_CAT, CREATE_CATEGORY, SET_CURRENT_LOC } from '../actionType';
 
 export function toolsbarAction(tool) {
   return {
@@ -25,6 +25,13 @@ export function updateCategory(str) {
 export function setCurrentCat(item) {
   return {
     type: SET_CURRENT_CAT,
+    item
+  }
+}
+
+export function setCurrentLoc(item) {
+  return {
+    type: SET_CURRENT_LOC,
     item
   }
 }

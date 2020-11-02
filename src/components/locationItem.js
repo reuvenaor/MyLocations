@@ -14,7 +14,7 @@ const categoryItem = (props) => {
   return (
     <TouchableOpacity
       style={[stl.locItem, props.hightlighted && { ...Styles.elevateFifteen }]}
-      onPress={() => props.setCurrentCat(item)}
+      onPress={() => props.setCurrentLoc(item)}
     >
       <View style={stl.blackWrap}>
         <View style={stl.block}>

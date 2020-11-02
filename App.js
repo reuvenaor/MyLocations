@@ -16,7 +16,8 @@ import {Colors} from './src/utils/styles'
 import CategoriesScreen from './src/screens/CategoriesScreen';
 import CreateCatScreen from './src/screens/createCatScreen';
 import LocationsScreen from './src/screens/LocationsScreen';
-import CreateLocScreen from './src/screens/createLocScreen';
+import LocationScreen from './src/screens/LocationScreen';
+
 
 const CategoriesStack = createStackNavigator();
 
@@ -35,7 +36,7 @@ function LocationsScreens() {
   return (
     <LocationsStack.Navigator headerMode="none">
       <LocationsStack.Screen name={Screens.CAT_HOME} component={LocationsScreen} />
-      <LocationsStack.Screen name={Screens.CREATE} component={CreateLocScreen} />
+      <LocationsStack.Screen name={Screens.LOCATION} component={LocationScreen} />
     </LocationsStack.Navigator>
   );
 }

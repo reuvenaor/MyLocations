@@ -1,4 +1,4 @@
-import { UPDATE_CATEGORY, SET_CURRENT_CAT, DELETE, UPDATE, CREATE_CATEGORY } from '../actionType';
+import { UPDATE_CATEGORY, SET_CURRENT_CAT, DELETE, UPDATE, CREATE_CATEGORY, SET_CURRENT_LOC } from '../actionType';
 import { categoriesInit, locationsInit } from '../../utils/api';
 
 const categoriesState = {
@@ -69,6 +69,11 @@ const reducer = (state = { ...categoriesState, ...locationsState }, action) => {
       return {
         ...state,
         currentCategory: action.item
+      }
+    case SET_CURRENT_LOC: 
+      return {
+        ...state,
+        currentLocation: action.item
       }
     default:
       return state;

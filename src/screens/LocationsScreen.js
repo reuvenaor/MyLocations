@@ -5,18 +5,19 @@ import {
   FlatList,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { setCurrentCat, updateCategory } from '../store/actions/locationAction';
+import { setCurrentLoc } from '../store/actions/locationAction';
 import { setTools } from '../store/actions/globalAction';
 import { Styles, Sizes } from '../utils/styles';
 import ToolsBar from '../components/toolsBar';
 import LoccationItem from '../components/locationItem';
-
+import {Screens} from '../utils/enums';
 
 const CategoriesScreen = (props) => {
 
   const [title, setTitle] = useState('Locations');
 
   useEffect(() => {
+    setTitle('Locations')
     if (props.currentLocation.name === '') {
       props.setTools({
         create: true,
@@ -25,6 +26,7 @@ const CategoriesScreen = (props) => {
         update: false,
       });
     } else {
+      setTitle(props.currentLocation.name)
       props.setTools({
         create: true,
         delete: true,
@@ -37,13 +39,20 @@ const CategoriesScreen = (props) => {
   const onClear = () => {
     setTitle('Locations')
     if (props.currentLocation.name !== '') {
-      props.setCurrentCat({ ['0']: '', ['1']: { _name: '' } })
-    }
+      props.setCurrentLoc({    
+      name: '',
+      address: '',
+      coordinates: {
+        lat: '',
+        lng: ''
+      },
+      category: []
+    })}
   }
 
   function onRead() {
-    if (props.currentLocation.name) {
-      setTitle(props.currentLocation.name)
+    if (props.currentLocation) {
+      props.navigation.navigate(Screens.LOCATION);
     }
   }
 
@@ -63,8 +72,7 @@ const CategoriesScreen = (props) => {
             key={item} 
             item={item} 
             hightlighted={props.currentLocation.name === item.name}  
-            setCurrentCat={props.setCurrentCat}
-            updateCategory={props.updateCategory}
+            setCurrentLoc={props.setCurrentLoc}
             />
           }}
         />
@@ -88,7 +96,7 @@ const stl = StyleSheet.create({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setCurrentCat: (item) => dispatch(setCurrentCat(item)),
+    setCurrentLoc: (item) => dispatch(setCurrentLoc(item)),
     setTools: (obj) => dispatch(setTools(obj)),
     updateCategory: (str) => dispatch(updateCategory(str))
   };

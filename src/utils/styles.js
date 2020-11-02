@@ -46,6 +46,7 @@ export const Styles = StyleSheet.create({
     height: '100%'
   },
   body: { flex: 0.9, width: '100%', alignItems: 'center'  },
+  bodyScroll: {flex: 0.9, width: '100%'},
   center: {
     alignItems: 'center',
     justifyContent: 'center'

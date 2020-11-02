@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
-  TextInput,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard
 } from 'react-native';
@@ -11,7 +9,8 @@ import { connect } from 'react-redux';
 import { createCat } from '../store/actions/locationAction';
 import { Styles, Sizes, Colors } from '../utils/styles';
 import ToolsBar from '../components/toolsBar';
-import UiText from '../components/uText';
+import UiButton from '../components/uButton';
+import UiTextInput from '../components/uTextInput';
 
 const CreateCatScreen = (props) => {
 
@@ -27,22 +26,12 @@ const CreateCatScreen = (props) => {
       <View style={[Styles.container]}>
         <ToolsBar title={'New Category'} />
         <View style={Styles.body}>
-          <TextInput
-            allowFontScaling={false}
-            style={stl.textInput}
-            numberOfLines={1}
-            underlineColorAndroid={'transparent'}
-            onChangeText={txt => setValue(txt)}
-            multiline={true}
-            maxLength={20}
-            value={value}
-            blurOnSubmit={true}
-            disableFullscreenUI={true}
-          />
-
-          <TouchableOpacity onPress={onPress} style={[stl.btn]}>
-            <UiText>{'SAVE'}</UiText>
-          </TouchableOpacity>
+          <UiTextInput
+           onChangeText={txt => setValue(txt)}
+           value={value}
+           style={{ marginVertical: '10%' }}
+          /> 
+          <UiButton onPress={onPress} title={'SAVE'}/>
         </View>
       </View>
 
@@ -51,15 +40,6 @@ const CreateCatScreen = (props) => {
 }
 
 const stl = StyleSheet.create({
-  textInput: {
-    width: '76%',
-    marginHorizontal: '2%',
-    borderRadius: Sizes.PREC_2,
-    elevation: 2,
-    paddingHorizontal: '5%',
-    backgroundColor: Colors.LIGHT,
-    marginVertical: '10%'
-  },
   btn: {
     width: 90,
     height: 40,
