@@ -23,3 +23,5 @@ export const EpLocation = {
   },
   category: []
 }
+
+export const EpCategory = { ['0']: '', ['1']: { _name: '' } };

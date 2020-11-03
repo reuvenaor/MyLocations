@@ -7,8 +7,8 @@ import {
 import { connect } from 'react-redux';
 import { setCurrentLoc, toolsbarAction } from '../store/actions/locationAction';
 import { setTools } from '../store/actions/globalAction';
-import {DELETE_LOCATION} from '../store/actionType';
-import { Styles, Sizes } from '../utils/styles';
+import { DELETE_LOCATION } from '../store/actionType';
+import { Styles } from '../utils/styles';
 import { EpLocation, Screens } from '../utils/enums';
 import ToolsBar from '../components/toolsBar';
 import LoccationItem from '../components/locationItem';
@@ -113,7 +113,7 @@ const LocationsScreen = (props) => {
         read: false,
         update: false
       });
-      props.navigation.navigate(Screens.LOCATION, {edit: false});
+      props.navigation.navigate(Screens.LOCATION, { edit: false });
     }
   }
 
@@ -124,7 +124,7 @@ const LocationsScreen = (props) => {
       read: false,
       update: false
     });
-    props.navigation.navigate(Screens.LOCATION, {edit: true});
+    props.navigation.navigate(Screens.LOCATION, { edit: true });
     props.setCurrentLoc(EpLocation)
   }
 
@@ -141,15 +141,15 @@ const LocationsScreen = (props) => {
       read: false,
       update: false
     });
-    props.navigation.navigate(Screens.LOCATION, {edit: true});
+    props.navigation.navigate(Screens.LOCATION, { edit: true });
   }
 
 
   return (
     <View style={[Styles.container]}>
-      <ToolsBar title={title} onRead={onRead} onCreate={onCreate} onDelete={onDelete}  onUpdate={onUpdate} />
+      <ToolsBar title={title} onRead={onRead} onCreate={onCreate} onDelete={onDelete} onUpdate={onUpdate} />
       <View style={Styles.body}>
-        <View style={{ width: '100%', flexDirection: 'row' }}>
+        <View style={stl.btnsWrap}>
           <UiBottun title={'Alphabetically ' + sortAsc} style={[stl.srtBtn]} onPress={onSort} />
           <UiBottun title={isGroup ? 'Group by category' : 'All'} style={[stl.srtBtn]} onPress={onGroupBy} />
         </View>
@@ -184,7 +184,8 @@ const stl = StyleSheet.create({
     width: '100%',
     paddingHorizontal: '5%',
   },
-  srtBtn: { width: '45%', marginLeft: '1%', alignSelf: 'flex-start' }
+  srtBtn: { width: '45%' },
+  btnsWrap: { width: '100%', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }
 });
 
 

@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { setCurrentCat, updateCategory, toolsbarAction } from '../store/actions/locationAction';
 import { setTools } from '../store/actions/globalAction';
 import { DELETE, UPDATE } from '../store/actionType';
-import { Screens } from '../utils/enums';
+import { Screens, EpCategory } from '../utils/enums';
 import { Styles, Sizes } from '../utils/styles';
 import ToolsBar from '../components/toolsBar';
 import CatItem from '../components/categoryItem';
@@ -39,7 +39,7 @@ const CategoriesScreen = (props) => {
   const onClear = () => {
     setTitle('Categories')
     if (props.currentCategory[0] !== '') {
-      props.setCurrentCat({ ['0']: '', ['1']: { _name: '' } })
+      props.setCurrentCat(EpCategory)
     }
   }
 
@@ -53,13 +53,12 @@ const CategoriesScreen = (props) => {
     props.toolsbarAction({ type: UPDATE })
   }
 
-  function onDelete(id) {
-    props.toolsbarAction({ id, type: DELETE, data: null });
-    props.setCurrentCat({ ['0']: '', ['1']: { _name: '' } });
+  function onDelete() {
+    props.toolsbarAction({ type: DELETE });
   }
 
   function onCreate() {
-    props.setCurrentCat({ ['0']: '', ['1']: { _name: '' } });
+    props.setCurrentCat(EpCategory);
     props.navigation.navigate(Screens.CREATE)
   }
 
@@ -107,7 +106,7 @@ const mapDispatchToProps = (dispatch) => {
     setCurrentCat: (item) => dispatch(setCurrentCat(item)),
     setTools: (obj) => dispatch(setTools(obj)),
     updateCategory: (str) => dispatch(updateCategory(str)),
-    toolsbarAction: (obj) => dispatch(toolsbarAction(obj))
+    toolsbarAction: (tool) => dispatch(toolsbarAction(tool))
   };
 };
 

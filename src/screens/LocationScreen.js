@@ -66,7 +66,7 @@ const LocationScreen = (props) => {
   }
 
   function onUpdate() {
-    
+
   }
 
   function onDelete() {
@@ -103,7 +103,6 @@ const LocationScreen = (props) => {
           onPress={onPressMap}
           liteMode={!editable}
           loadingEnabled
-          // initialRegion={{ ...deltas, ...coords }}
           region={{ ...deltas, ...coords }}
         >
           <Marker coordinate={coords} title={'Your Location'} description={''} />
@@ -111,7 +110,7 @@ const LocationScreen = (props) => {
         <UiText>{'categories: '}</UiText>
         <UiText style={{ fontSize: 20 }}>{category.map(i => ' ' + i[1]._name + ',')}</UiText>
         {editable ? <UiPicker array={Object.entries(props.categories)} value={pickerValue} title={'Add: '} onValueChange={onValueChange} /> : null}
-        {editable ? <UiButton onPress={onSave} title={'SAVE'} style={{ alignSelf: 'center' }} /> : null}
+        {editable ? <UiButton onPress={onSave} title={'SAVE'} style={{ alignSelf: 'center', marginBottom: '5%' }} /> : null}
       </ScrollView>
     </View>
   );

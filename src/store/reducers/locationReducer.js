@@ -9,17 +9,12 @@ import {
   UPDATE_LOCATION
 } from '../actionType';
 import { categoriesInit, locationsInit } from '../../utils/api';
-import { EpLocation } from '../../utils/enums';
+import { EpLocation, EpCategory } from '../../utils/enums';
 
 
 const categoriesState = {
   categories: categoriesInit(),
-  currentCategory: {
-    [0]: '',
-    [1]: {
-      _name: ''
-    }
-  }
+  currentCategory: EpCategory
 }
 
 const locationsState = {
