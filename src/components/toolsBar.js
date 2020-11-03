@@ -4,14 +4,9 @@ import {
   StyleSheet,
 } from 'react-native';
 import { Colors, Styles } from '../utils/styles';
-import { Screens } from '../utils/enums';
-import { toolsbarAction, setCurrentCat } from '../store/actions/locationAction';
-import { DELETE, UPDATE } from '../store/actionType';
-import { setTools } from '../store/actions/globalAction';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import UiText from './uText';
-import { useNavigation } from '@react-navigation/native';
 
 const getIconName = (key) => {
   switch (key) {
@@ -40,30 +35,17 @@ const CustomTextButton = ({ name, active, action }) => (
 
 const ToolsBarComp = (props) => {
 
-  const navigation = useNavigation();
-
-  function onCreate() {
-    props.setCurrentCat({ ['0']: '', ['1']: { _name: '' } });
-    navigation.navigate(Screens.CREATE)
-  }
-
-  function onDelete(id) {
-    props.toolsbarAction({ id, type: DELETE, data: null });
-    props.setCurrentCat({ ['0']: '', ['1']: { _name: '' } });
-  }
-
-
   const onAction = (id) => {
     switch (id) {
-      case 'delete': return onDelete(id)
+      case 'delete': return props.onDelete(id)
 
       case 'read': return props.onRead()
 
-      case 'update': return props.toolsbarAction({ type: UPDATE })
+      case 'update': return props.onUpdate() //props.toolsbarAction({ type: UPDATE })
 
-      case 'create': return onCreate()
+      case 'create': return props.onCreate()
 
-      default: return navigation.navigate(Screens.CREATE)
+      default: return () => true
     }
   }
 
@@ -96,20 +78,12 @@ const stl = StyleSheet.create({
   },
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setCurrentCat: (item) => dispatch(setCurrentCat(item)),
-    setTools: (obj) => dispatch(setTools(obj)),
-    toolsbarAction: (obj) => dispatch(toolsbarAction(obj)),
-  };
-};
 
 const mapStateToProps = (state) => {
   return {
     toolsbar: state.globalReducer.toolsbar,
-    currentCategory: state.locationReducer.currentCategory,
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ToolsBarComp);
+export default connect(mapStateToProps, null)(ToolsBarComp);
 

@@ -11,25 +11,30 @@ const categoryItem = (props) => {
 
   const item = props.item;
 
-  return (
-    <TouchableOpacity
-      style={[stl.locItem, props.hightlighted && { ...Styles.elevateFifteen }]}
-      onPress={() => props.setCurrentLoc(item)}
-    >
-      <View style={stl.blackWrap}>
-        <View style={stl.block}>
-          <UiText>{item.name}</UiText>
-          <UiText>{item.address}</UiText>
+  if (item) {
+    return (
+      <TouchableOpacity
+        style={[stl.locItem, props.hightlighted && { ...Styles.elevateFifteen }]}
+        onPress={() => props.setCurrentLoc(item)}
+      >
+        <View style={stl.blackWrap}>
+          <View style={stl.block}>
+            <UiText>{item.name}</UiText>
+            <UiText>{item.address}</UiText>
+          </View>
+          <View style={stl.block}>
+            <UiText>{'lat: ' + item.coordinates.latitude}</UiText>
+            <UiText>{'lng: ' + item.coordinates.longitude}</UiText>
+          </View>
         </View>
-        <View style={stl.block}>
-          <UiText>{'lat: ' + item.coordinates.lat}</UiText>
-          <UiText>{'lng: ' + item.coordinates.lng}</UiText>
-        </View>
-      </View>
-      <UiText>{'caterogies:'}</UiText>
-      <UiText>{item.category.map(i => ' ' + i._name)}</UiText>
-    </TouchableOpacity>
-  );
+        <UiText>{'caterogies:'}</UiText>
+        <UiText>{item.category.map(i => ' ' + i._name)}</UiText>
+      </TouchableOpacity>
+    );
+  } else {
+    return null
+  }
+
 }
 
 const stl = StyleSheet.create({

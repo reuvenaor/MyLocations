@@ -1,6 +1,7 @@
 
 const MAX_CAT_INIT = 30;
 
+
 export function categoriesInit() {
   let categoriesInit = {};
   for (let i = 0; i < MAX_CAT_INIT; i++) {
@@ -15,16 +16,20 @@ export function categoriesInit() {
 
 const categories =  categoriesInit();
 
+function generateCat() {
+  return [...new Array(3)].map(i => categories['c' + (Math.random() * 29).toFixed(0)])
+}
+
 export function locationsInit() {
   return [...new Array(MAX_CAT_INIT)].map((i, idx) => {
     return {
       name: 'name' + idx,
       address: 'add' + idx,
       coordinates: {
-        lat: '101.' + idx,
-        lng: '27.' + idx
+        latitude: 37 + idx,
+        longitude: -120 + idx
       },
-      category: [categories['c1'], categories['c2'], categories['c3']]
+      category: generateCat()
     }
   });
 }

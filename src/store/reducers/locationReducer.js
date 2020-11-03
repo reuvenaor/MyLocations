@@ -18,8 +18,8 @@ const locationsState = {
     name: '',
     address: '',
     coordinates: {
-      lat: '',
-      lng: ''
+      latitude: '',
+      longitude: ''
     },
     category: [categoriesState.categories['c1']]
   }

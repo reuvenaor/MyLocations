@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   StyleSheet,
@@ -13,19 +13,24 @@ import UiButton from '../components/uButton';
 import UiTextInput from '../components/uTextInput';
 import MapView, { PROVIDER_GOOGLE, Polyline, Marker, MAP_TYPES } from 'react-native-maps';
 
-
-function onPress() {
-  // props.createCat(value);
-  props.navigation.goBack();
-}
-
+const deltas = { latitudeDelta: 0.015, longitudeDelta: 0.0121 }
 
 const LocationScreen = (props) => {
 
-  const [name, setName] = useState('name');
-  const [address, setAddress] = useState('address');
-  const [lat, setLat] = useState('lat');
-  const [lng, setLng] = useState('lng');
+  const { currentLocation, type } = props.route.params;
+  const editable = currentLocation.name === '';
+
+  const [name, setName] = useState(currentLocation.name);
+  const [address, setAddress] = useState(currentLocation.address);
+  const [coords, setCoords] = useState(currentLocation.coordinates);
+
+  function onPressMap(e) {
+    setCoords(e.nativeEvent.coordinate);
+  }
+
+  function onSave() {
+    props.navigation.goBack();
+  }
 
   return (
     <View style={[Styles.container]}>
@@ -33,15 +38,15 @@ const LocationScreen = (props) => {
       <ScrollView style={[Styles.bodyScroll, stl.locationWrap]}>
         <UiTextInput
           onChangeText={txt => setName(txt)}
+          editable={editable}
           value={name}
           title={'Name: '}
-          editable={false}
         />
         <UiTextInput
           onChangeText={txt => setAddress(txt)}
+          editable={editable}
           value={address}
           title={'Address: '}
-          editable={false}
         />
         <MapView
           // ref={mapRef}
@@ -49,21 +54,16 @@ const LocationScreen = (props) => {
           style={stl.map}
           showsUserLocation
           followsUserLocation
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.015,
-            longitudeDelta: 0.0121,
-          }}
-          // onPress={props.onPressMap}
-          // showsCompass
+          onPress={onPressMap}
+          liteMode={!editable}
           loadingEnabled
-        // region={props.region}
-        // onRegionChange={reg => true}
+          initialRegion={{ ...deltas, ...coords }}
+          region={{ ...deltas, ...coords }}
         >
+          <Marker coordinate={coords} title={'Your Location'} description={''} />
         </MapView>
         <UiText>{'categories: '}</UiText>
-        <UiButton onPress={onPress} title={'SAVE'} style={{ alignSelf: 'center' }} />
+        {editable ? <UiButton onPress={onSave} title={'SAVE'} style={{ alignSelf: 'center' }} /> : null}
       </ScrollView>
     </View>
   );
@@ -74,9 +74,9 @@ const stl = StyleSheet.create({
     padding: '4%'
   },
   map: {
-    marginTop: '2%',
+    marginVertical: '2%',
     width: '100%',
-    height: 100,
+    height: 150,
   }
 });
 

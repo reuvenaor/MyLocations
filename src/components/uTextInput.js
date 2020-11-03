@@ -13,7 +13,7 @@ const UiTextInput = (props) => {
       {props.title ? <UiText>{props.title}</UiText> : null }
       <TextInput
         allowFontScaling={false}
-        editable={props.editable || true}
+        editable={props.editable ?? true}
         style={[stl.textInput, props.style]}
         numberOfLines={1}
         underlineColorAndroid={'transparent'}

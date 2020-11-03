@@ -5,8 +5,10 @@ import {
   FlatList,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { setCurrentCat, updateCategory } from '../store/actions/locationAction';
+import { setCurrentCat, updateCategory, toolsbarAction } from '../store/actions/locationAction';
 import { setTools } from '../store/actions/globalAction';
+import { DELETE, UPDATE } from '../store/actionType';
+import { Screens } from '../utils/enums';
 import { Styles, Sizes } from '../utils/styles';
 import ToolsBar from '../components/toolsBar';
 import CatItem from '../components/categoryItem';
@@ -47,9 +49,23 @@ const CategoriesScreen = (props) => {
     }
   }
 
+  function onUpdate() {
+    props.toolsbarAction({ type: UPDATE })
+  }
+
+  function onDelete(id) {
+    props.toolsbarAction({ id, type: DELETE, data: null });
+    props.setCurrentCat({ ['0']: '', ['1']: { _name: '' } });
+  }
+
+  function onCreate() {
+    props.setCurrentCat({ ['0']: '', ['1']: { _name: '' } });
+    props.navigation.navigate(Screens.CREATE)
+  }
+
   return (
     <View style={[Styles.container]}>
-      <ToolsBar title={title} onRead={onRead} />
+      <ToolsBar title={title} onRead={onRead} onUpdate={onUpdate} onDelete={onDelete} onCreate={onCreate}/>
       <View style={Styles.body}>
         <FlatList
           onScroll={onClear}
@@ -90,7 +106,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setCurrentCat: (item) => dispatch(setCurrentCat(item)),
     setTools: (obj) => dispatch(setTools(obj)),
-    updateCategory: (str) => dispatch(updateCategory(str))
+    updateCategory: (str) => dispatch(updateCategory(str)),
+    toolsbarAction: (obj) => dispatch(toolsbarAction(obj))
   };
 };
 
