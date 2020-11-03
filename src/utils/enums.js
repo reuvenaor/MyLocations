@@ -7,8 +7,18 @@ export const Screens = {
 }
 
 export const ToolsBar = {
-    create: true,
-    delete: false,
-    read: false,
-    update: false,
+  create: true,
+  delete: false,
+  read: false,
+  update: false,
+}
+
+export const EpLocation = {
+  name: '',
+  address: '',
+  coordinates: {
+    latitude: 32.0853,
+    longitude: 34.7818
+  },
+  category: []
 }

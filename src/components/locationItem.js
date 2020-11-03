@@ -28,7 +28,7 @@ const categoryItem = (props) => {
           </View>
         </View>
         <UiText>{'caterogies:'}</UiText>
-        <UiText>{item.category.map(i => ' ' + i._name)}</UiText>
+        <UiText>{item.category.map(i => ' ' + i[1]._name)}</UiText>
       </TouchableOpacity>
     );
   } else {

@@ -8,24 +8,20 @@ import { connect } from 'react-redux';
 import { setCurrentLoc } from '../store/actions/locationAction';
 import { setTools } from '../store/actions/globalAction';
 import { Styles, Sizes } from '../utils/styles';
+import { EpLocation, Screens } from '../utils/enums';
 import ToolsBar from '../components/toolsBar';
 import LoccationItem from '../components/locationItem';
 import UiPicker from '../components/uPicker';
 import UiBottun from '../components/uButton';
 import UiText from '../components/uText';
-import { Screens } from '../utils/enums';
 
-const CategoriesScreen = (props) => {
+const LocationsScreen = (props) => {
 
   const [title, setTitle] = useState('Locations');
   const [locations, setLocations] = useState([{ title: 'all', data: props.locations }]);
   const [pickerValue, setPickerValue] = useState('')
   const [sortAsc, setSortAsc] = useState('')
   const isGroup = locations[0]?.title === 'all' && locations.length === 1;
-
-  // useEffect(() => {
-  //   setLocations([{ title: 'all', data: props.locations }])
-  // },[])
 
   useEffect(() => {
     setTitle('Locations')
@@ -62,14 +58,13 @@ const CategoriesScreen = (props) => {
   function onValueChange(val) {
     const newList = props.locations.filter(l => {
       return l.category.find(ci => {
-        return ci._name === val
+        return ci[1]._name === val[1]._name
       })
     })
-    console.log(newList);
     if (newList.length) {
-      setLocations([{ title: val, data: newList }]);
+      setLocations([{ title: val[1]._name, data: newList }]);
     } else {
-      setLocations([{ title: val, data: [] }]);
+      setLocations([{ title: val[1]._name, data: [] }]);
     }
     setPickerValue(val)
   }
@@ -87,14 +82,13 @@ const CategoriesScreen = (props) => {
       const newList = Object.entries(props.categories).map(co => {
         const filteredLoctions = props.locations.filter(l => {
           return l.category.find(ci => {
-            return ci._name === co[1]._name
+            return ci[1]._name === co[1]._name
           })
         })
         return { title: co[1]._name, data: filteredLoctions }
       });
       setLocations(newList);
     } else {
-      console.log('all')
       setLocations([{ title: 'all', data: props.locations }]);
     }
   }
@@ -102,33 +96,30 @@ const CategoriesScreen = (props) => {
   const onClear = () => {
     setTitle('Locations')
     if (props.currentLocation.name !== '') {
-      props.setCurrentLoc({
-        name: '',
-        address: '',
-        coordinates: {
-          latitude: '',
-          longitude: ''
-        },
-        category: []
-      })
+      props.setCurrentLoc(EpLocation)
     }
   }
 
   function onRead() {
     if (props.currentLocation) {
-      props.setTools({        
+      props.setTools({
         create: true,
         delete: true,
         read: false,
         update: false
       });
-      props.navigation.navigate(Screens.LOCATION, {currentLocation: props.currentLocation, type: 'read'});
+      props.navigation.navigate(Screens.LOCATION);
     }
+  }
+
+  function onCreate() {
+    props.setCurrentLoc(EpLocation)
+    props.navigation.navigate(Screens.LOCATION);
   }
 
   return (
     <View style={[Styles.container]}>
-      <ToolsBar title={title} onRead={onRead} />
+      <ToolsBar title={title} onRead={onRead} onCreate={onCreate} />
       <View style={Styles.body}>
         <View style={{ width: '100%', flexDirection: 'row' }}>
           <UiBottun title={'Alphabetically ' + sortAsc} style={[stl.srtBtn]} onPress={onSort} />
@@ -184,4 +175,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoriesScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(LocationsScreen);

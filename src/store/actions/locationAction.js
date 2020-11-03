@@ -1,4 +1,4 @@
-import { UPDATE_CATEGORY, SET_CURRENT_CAT, CREATE_CATEGORY, SET_CURRENT_LOC  } from '../actionType';
+import { UPDATE_CATEGORY, SET_CURRENT_CAT, CREATE_CATEGORY, SET_CURRENT_LOC, CREATE_LOCATION } from '../actionType';
 
 export function toolsbarAction(tool) {
   return {
@@ -33,5 +33,13 @@ export function setCurrentLoc(item) {
   return {
     type: SET_CURRENT_LOC,
     item
+  }
+}
+
+
+export function createLocation(obj) {
+  return {
+    type: CREATE_LOCATION,
+    obj
   }
 }

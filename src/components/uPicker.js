@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React from 'react';
 import {
   View,
 } from 'react-native';
@@ -20,7 +20,7 @@ const UiPicker = (props) => {
         mode={'dropdown'}
         onValueChange={onValueChange}
       >
-        {props.array.map((i, idx) => <Picker.Item key={idx} label={i[1]._name} value={i[1]._name} />)}
+        {props.array.map((i, idx) => <Picker.Item key={idx} label={i[1]._name} value={i} />)}
       </Picker>
     </View>
   );

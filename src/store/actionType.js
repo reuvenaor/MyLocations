@@ -12,3 +12,5 @@ export const UPDATE = 'UPDATE';
 export const CREATE_CATEGORY = 'CREATE_CATEGORY';
 
 export const SET_CURRENT_LOC = 'SET_CURRENT_LOC';
+
+export const CREATE_LOCATION = 'CREATE_LOCATION';
