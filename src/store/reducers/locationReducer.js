@@ -1,5 +1,15 @@
-import { UPDATE_CATEGORY, SET_CURRENT_CAT, DELETE, UPDATE, CREATE_CATEGORY, SET_CURRENT_LOC, CREATE_LOCATION } from '../actionType';
+import {
+  UPDATE_CATEGORY,
+  SET_CURRENT_CAT,
+  DELETE, UPDATE,
+  CREATE_CATEGORY,
+  SET_CURRENT_LOC,
+  CREATE_LOCATION,
+  DELETE_LOCATION,
+  UPDATE_LOCATION
+} from '../actionType';
 import { categoriesInit, locationsInit } from '../../utils/api';
+import { EpLocation } from '../../utils/enums';
 
 
 const categoriesState = {
@@ -14,15 +24,7 @@ const categoriesState = {
 
 const locationsState = {
   locations: locationsInit(),
-  currentLocation: {
-    name: '',
-    address: '',
-    coordinates: {
-      latitude: '',
-      longitude: ''
-    },
-    category: [categoriesState.categories['c1']]
-  }
+  currentLocation: EpLocation,
 };
 
 const reducer = (state = { ...categoriesState, ...locationsState }, action) => {
@@ -80,6 +82,20 @@ const reducer = (state = { ...categoriesState, ...locationsState }, action) => {
       return {
         ...state,
         locations: state.locations.concat(action.obj)
+      }
+    case DELETE_LOCATION:
+      return {
+        ...state,
+        locations: state.locations.filter((i, idx) => idx !== state.currentLocation.id),
+        currentLocation: locationsState.currentLocation
+      }
+    case UPDATE_LOCATION:
+      const updateLoc = [...state.locations];
+      updateLoc[action.loc.id] = action.loc
+      return {
+        ...state,
+        locations: updateLoc,
+        currentLocation: locationsState.currentLocation
       }
     default:
       return state;

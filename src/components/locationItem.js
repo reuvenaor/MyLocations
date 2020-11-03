@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   TouchableOpacity,
@@ -15,20 +15,20 @@ const categoryItem = (props) => {
     return (
       <TouchableOpacity
         style={[stl.locItem, props.hightlighted && { ...Styles.elevateFifteen }]}
-        onPress={() => props.setCurrentLoc(item)}
+        onPress={() => props.setCurrentLoc({...item, id: props.id})}
       >
         <View style={stl.blackWrap}>
           <View style={stl.block}>
-            <UiText>{item.name}</UiText>
+            <UiText style={{fontSize: 18}}>{item.name}</UiText>
             <UiText>{item.address}</UiText>
           </View>
           <View style={stl.block}>
-            <UiText>{'lat: ' + item.coordinates.latitude}</UiText>
-            <UiText>{'lng: ' + item.coordinates.longitude}</UiText>
+            <UiText>{'lat: ' + item.coordinates.latitude.toFixed(4)}</UiText>
+            <UiText>{'lng: ' + item.coordinates.longitude.toFixed(4)}</UiText>
           </View>
         </View>
         <UiText>{'caterogies:'}</UiText>
-        <UiText>{item.category.map(i => ' ' + i[1]._name)}</UiText>
+        <UiText>{item.category.map(i => ' ' + i[1]._name + ',')}</UiText>
       </TouchableOpacity>
     );
   } else {

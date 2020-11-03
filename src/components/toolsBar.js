@@ -37,13 +37,13 @@ const ToolsBarComp = (props) => {
 
   const onAction = (id) => {
     switch (id) {
-      case 'delete': return props.onDelete(id)
+      case 'delete': return props.onDelete && props.onDelete(id)
 
-      case 'read': return props.onRead()
+      case 'read': return props.onRead && props.onRead()
 
-      case 'update': return props.onUpdate() //props.toolsbarAction({ type: UPDATE })
+      case 'update': return props.onUpdate && props.onUpdate() 
 
-      case 'create': return props.onCreate()
+      case 'create': return props.onCreate && props.onCreate()
 
       default: return () => true
     }

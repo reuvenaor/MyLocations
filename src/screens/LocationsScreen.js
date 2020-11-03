@@ -5,8 +5,9 @@ import {
   SectionList,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { setCurrentLoc } from '../store/actions/locationAction';
+import { setCurrentLoc, toolsbarAction } from '../store/actions/locationAction';
 import { setTools } from '../store/actions/globalAction';
+import {DELETE_LOCATION} from '../store/actionType';
 import { Styles, Sizes } from '../utils/styles';
 import { EpLocation, Screens } from '../utils/enums';
 import ToolsBar from '../components/toolsBar';
@@ -42,6 +43,10 @@ const LocationsScreen = (props) => {
       });
     }
   }, [props.currentLocation])
+
+  useEffect(() => {
+    setLocations([{ title: 'all', data: props.locations }])
+  }, [props.locations])
 
   function sortName(a, b) {
     var nameA = a.name.toUpperCase();
@@ -103,23 +108,46 @@ const LocationsScreen = (props) => {
   function onRead() {
     if (props.currentLocation) {
       props.setTools({
-        create: true,
+        create: false,
         delete: true,
         read: false,
         update: false
       });
-      props.navigation.navigate(Screens.LOCATION);
+      props.navigation.navigate(Screens.LOCATION, {edit: false});
     }
   }
 
   function onCreate() {
+    props.setTools({
+      create: false,
+      delete: false,
+      read: false,
+      update: false
+    });
+    props.navigation.navigate(Screens.LOCATION, {edit: true});
     props.setCurrentLoc(EpLocation)
-    props.navigation.navigate(Screens.LOCATION);
   }
+
+  function onDelete() {
+    if (props.currentLocation.id >= 0) {
+      props.toolsbarAction({ type: DELETE_LOCATION });
+    }
+  }
+
+  function onUpdate() {
+    props.setTools({
+      create: false,
+      delete: true,
+      read: false,
+      update: false
+    });
+    props.navigation.navigate(Screens.LOCATION, {edit: true});
+  }
+
 
   return (
     <View style={[Styles.container]}>
-      <ToolsBar title={title} onRead={onRead} onCreate={onCreate} />
+      <ToolsBar title={title} onRead={onRead} onCreate={onCreate} onDelete={onDelete}  onUpdate={onUpdate} />
       <View style={Styles.body}>
         <View style={{ width: '100%', flexDirection: 'row' }}>
           <UiBottun title={'Alphabetically ' + sortAsc} style={[stl.srtBtn]} onPress={onSort} />
@@ -133,9 +161,10 @@ const LocationsScreen = (props) => {
           columnWrapperStyle={{ alignItems: 'center', justifyContent: 'center' }}
           sections={locations}
           keyExtractor={(item, idx) => item + idx}
-          renderItem={({ item }) => {
+          renderItem={({ item, index }) => {
             return <LoccationItem
-              key={item}
+              key={index}
+              id={index}
               item={item}
               hightlighted={props.currentLocation.name === item.name}
               setCurrentLoc={props.setCurrentLoc}
@@ -164,6 +193,7 @@ const mapDispatchToProps = (dispatch) => {
     setCurrentLoc: (item) => dispatch(setCurrentLoc(item)),
     setTools: (obj) => dispatch(setTools(obj)),
     updateCategory: (str) => dispatch(updateCategory(str)),
+    toolsbarAction: (tool) => dispatch(toolsbarAction(tool)),
   };
 };
 

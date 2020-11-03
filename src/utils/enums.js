@@ -14,6 +14,7 @@ export const ToolsBar = {
 }
 
 export const EpLocation = {
+  id: -1,
   name: '',
   address: '',
   coordinates: {
